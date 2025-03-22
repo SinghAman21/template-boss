@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "repository": "https://github.com/SinghAman21/template-boss",
+  "keywords": ["template", "react", "tailwind", "boss"],
   "author": "Aman Singh",
   "license": "ISC",
   "scripts": {
