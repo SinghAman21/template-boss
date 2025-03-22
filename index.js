@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import * as fs from 'fs';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import createDirectoryContents from './createDirectoryContents.js';
+import displayDirectory from './displayDirectory.js';
 import showProgress from './progress.js';
 
 const CURR_DIR = process.cwd();
@@ -38,10 +38,10 @@ inquirer.prompt(QUESTIONS).then(async answers => {
 
   if (projectName === '.') {
     await showProgress(projectName, templatePath);
-    createDirectoryContents(templatePath, '.');
+    displayDirectory(templatePath, '.');
   } else {
     await showProgress(projectName, templatePath);
     fs.mkdirSync(`${CURR_DIR}/${projectName}`);
-    createDirectoryContents(templatePath, projectName);
+    displayDirectory(templatePath, projectName);
   }
 });
