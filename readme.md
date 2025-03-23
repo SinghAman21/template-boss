@@ -1,13 +1,13 @@
 # template-boss
 
 ## Overview
-`@singhaman21/template-boss` is a global CLI tool for quickly scaffolding various project templates, including React, Next.js, GraphQL, AWS, and Node.js.
+`template-boss` is a global CLI tool for quickly scaffolding various project templates, including React, Next.js, GraphQL, AWS, and Node.js.
 
 ## Installation
 To install the package globally, run:
 
 ```
-npm i @singhaman21/template-boss -g
+npm i template-boss -g
 ```
 
 
@@ -49,4 +49,4 @@ template-boss
 Follow the prompts to select a template and create your project.
 
 ---
-Start your development journey with `@singhaman21/template-boss` today!
+Kick start your development journey with `template-boss` today!
