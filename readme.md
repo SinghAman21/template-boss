@@ -61,16 +61,16 @@ Please follow the steps below to ensure a smooth contribution process:
 3. **Create a New Branch**  
    - Clone your forked repository to your local machine:  
      ```
-     git clone https://github.com/<your-username>/<repo-name>.git
+     git clone https://github.com/<your-username>--<repo-name>.git
      cd <repo-name>
      ```
    - Create a new branch using the format `<username>/issue-<issue-no>`:  
      ```
-     git checkout -b <username>/issue-<issue-no>
+     git checkout -b <username>--issue-<issue-no>
      ```
      Example:  
      ```
-     git checkout -b SinghAman21/issue-01
+     git checkout -b SinghAman21--issue-01
      ```
 
 4. **Make Your Changes**  
