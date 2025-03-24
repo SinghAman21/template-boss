@@ -6,9 +6,15 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import displayDirectory from './displayDirectory.js';
 import showProgress from './progress.js';
+import { setupKeyboardInterrupt, checkDirectoryExists, setupErrorHandlers, setupCleanupHandlers } from './interrupts.js';
 
 const CURR_DIR = process.cwd();
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Setup interrupt handlers
+setupKeyboardInterrupt();
+setupErrorHandlers();
+setupCleanupHandlers();
 
 const CHOICES = fs.readdirSync(`${__dirname}/templates`);
 
@@ -35,6 +41,9 @@ inquirer.prompt(QUESTIONS).then(async answers => {
   const projectChoice = answers['project-choice'];
   const projectName = answers['project-name'];
   const templatePath = `${__dirname}/templates/${projectChoice}`;
+
+  // Check if directory exists before proceeding
+  checkDirectoryExists(projectName);
 
   if (projectName === '.') {
     await showProgress(projectName, templatePath);
