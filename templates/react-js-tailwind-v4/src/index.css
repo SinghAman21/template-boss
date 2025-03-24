@@ -1,10 +1,5 @@
-@import "tailwindcss";
 
-@layer base {
-  body {
-    @apply antialiased;
-  }
-}
+@import "tailwindcss";
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
