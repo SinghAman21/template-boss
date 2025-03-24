@@ -40,9 +40,12 @@
   },
   "dependencies": {
     "apollo-server-lambda": "^2.22.2",
+    "boxen": "^7.1.1",
+    "chalk": "^4.1.2",
     "graphql": "^15.5.0",
     "inquirer": "^12.5.0",
     "ora": "^5.4.1",
+    "semver": "^7.5.4",
     "serverless": "^2.35.0"
   }
 }

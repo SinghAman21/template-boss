@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import displayDirectory from './displayDirectory.js';
 import showProgress from './progress.js';
 import { setupKeyboardInterrupt, checkDirectoryExists, setupErrorHandlers, setupCleanupHandlers } from './interrupts.js';
+import { checkForUpdates } from './versionCheck.js';
 
 const CURR_DIR = process.cwd();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -15,6 +16,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 setupKeyboardInterrupt();
 setupErrorHandlers();
 setupCleanupHandlers();
+
+// Check for updates
+checkForUpdates();
 
 const CHOICES = fs.readdirSync(`${__dirname}/templates`);
 
