@@ -18,7 +18,7 @@ const App: React.FC = () => {
         </a>
       </div>
 
-      <h1>Vite + React</h1>
+      <h1>Vite + React + Tailwind v3</h1>
 
       <div className="card">
         <button onClick={() => setCount((prevCount) => prevCount + 1)}>
@@ -32,7 +32,7 @@ const App: React.FC = () => {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more.
       </p>
-      <span className="p-5 block" >Tailwind added by <a href="https://github.com/SinghAman21/" target="_blank" >user</a></span>
+      <span className="p-5 block" >Template customized by <a href="https://github.com/SinghAman21/" target="_blank" >user</a></span>
     </>
   );
 };

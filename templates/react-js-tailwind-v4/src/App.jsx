@@ -16,7 +16,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1 className='text-red-300'>Vite + React + TailwindV4</h1>
+      <h1>Vite + React + Tailwind v4</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -28,6 +28,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <span className="p-5 block" >Template customized by <a href="https://github.com/SinghAman21/" target="_blank" >user</a></span>
     </>
   )
 }

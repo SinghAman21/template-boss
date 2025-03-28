@@ -6,7 +6,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import displayDirectory from './displayDirectory.js';
 import showProgress from './progress.js';
-import { setupKeyboardInterrupt, checkDirectoryExists, setupErrorHandlers, setupCleanupHandlers } from './interrupts.js';
+import { setupKeyboardInterrupt, checkDirectoryExists, setupErrorHandlers } from './interrupts.js';
 import { checkForUpdates } from './versionCheck.js';
 
 const CURR_DIR = process.cwd();
@@ -15,7 +15,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Setup interrupt handlers
 setupKeyboardInterrupt();
 setupErrorHandlers();
-setupCleanupHandlers();
 
 // Check for updates
 checkForUpdates();
