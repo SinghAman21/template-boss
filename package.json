@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/dotenv-safe": "^8.1.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.33",
+    "@types/node": "^18.0.0",  
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.21.0",
@@ -48,8 +48,8 @@
     "@apollo/server": "^4.11.3",
     "boxen": "^7.1.1",
     "chalk": "^4.1.2",
-    "graphql": "^15.5.0",
-    "inquirer": "^12.5.0",
+    "graphql": "^16.8.1",
+    "inquirer": "^9.2.12",
     "ora": "^5.4.1",
     "semver": "^7.7.1"
   }
