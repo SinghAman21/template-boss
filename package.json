@@ -1,6 +1,6 @@
 {
   "name": "template-boss",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Bunch of templates nothing else",
   "main": "index.js",
   "type": "module",
