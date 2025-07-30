@@ -1,33 +1,32 @@
-import * as fs from 'fs';
+import { readdirSync, statSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { join } from 'path';
+
 const CURR_DIR = process.cwd();
 
 const displayDirectory = (templatePath, newProjectPath) => {
-  const filesToCreate = fs.readdirSync(templatePath);
+  const filesToCreate = readdirSync(templatePath);
 
   filesToCreate.forEach(file => {
-    const origFilePath = `${templatePath}/${file}`;
-
-    // get stats about the current file
-    const stats = fs.statSync(origFilePath);
+    const origFilePath = join(templatePath, file);
+    const stats = statSync(origFilePath);
+    
+    // Handle .npmignore → .gitignore conversion
+    const targetFile = file === '.npmignore' ? '.gitignore' : file;
+    
+    // Determine target path
+    const targetPath = newProjectPath === '.' 
+      ? join(CURR_DIR, targetFile)
+      : join(CURR_DIR, newProjectPath, targetFile);
 
     if (stats.isFile()) {
-      const contents = fs.readFileSync(origFilePath, 'utf8');
-
-      // Rename
-      if (file === '.npmignore') file = '.gitignore';
-
-      const writePath = newProjectPath === '.' 
-        ? `${CURR_DIR}/${file}`
-        : `${CURR_DIR}/${newProjectPath}/${file}`;
-      fs.writeFileSync(writePath, contents, 'utf8');
+      const contents = readFileSync(origFilePath, 'utf8');
+      writeFileSync(targetPath, contents, 'utf8');
     } else if (stats.isDirectory()) {
-      const dirPath = newProjectPath === '.'
-        ? `${CURR_DIR}/${file}`
-        : `${CURR_DIR}/${newProjectPath}/${file}`;
-      fs.mkdirSync(dirPath);
-
-      // recursive call
-      displayDirectory(`${templatePath}/${file}`, newProjectPath === '.' ? file : `${newProjectPath}/${file}`);
+      mkdirSync(targetPath, { recursive: true });
+      
+      // Recursive call with updated paths
+      const nextProjectPath = newProjectPath === '.' ? targetFile : join(newProjectPath, targetFile);
+      displayDirectory(origFilePath, nextProjectPath);
     }
   });
 };

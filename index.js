@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import inquirer from 'inquirer';
-import * as fs from 'fs';
-import { dirname } from 'path';
+import { readdirSync, mkdirSync } from 'fs';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import displayDirectory from './displayDirectory.js';
 import showProgress from './progress.js';
@@ -12,14 +12,12 @@ import { checkForUpdates } from './versionCheck.js';
 const CURR_DIR = process.cwd();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Setup interrupt handlers
+// Setup handlers
 setupKeyboardInterrupt();
 setupErrorHandlers();
-
-// Check for updates
 checkForUpdates();
 
-const CHOICES = fs.readdirSync(`${__dirname}/templates`);
+const CHOICES = readdirSync(join(__dirname, 'templates'));
 
 const QUESTIONS = [
   {
@@ -32,28 +30,26 @@ const QUESTIONS = [
     name: 'project-name',
     type: 'input',
     message: 'Project name:',
-    validate: function (input) {
+    validate: (input) => {
       if (input === '.') return true;
-      if (/^([A-Za-z\-\\_\d])+$/.test(input)) return true;
-      else return 'Project name may only include letters, numbers, underscores and hashes.';
+      return /^[A-Za-z\-_\d]+$/.test(input) || 'Project name may only include letters, numbers, underscores and hyphens.';
     },
   },
 ];
 
-inquirer.prompt(QUESTIONS).then(async answers => {
-  const projectChoice = answers['project-choice'];
-  const projectName = answers['project-name'];
-  const templatePath = `${__dirname}/templates/${projectChoice}`;
-
-  // Check if directory exists before proceeding
+inquirer.prompt(QUESTIONS).then(async ({ 'project-choice': projectChoice, 'project-name': projectName }) => {
+  const templatePath = join(__dirname, 'templates', projectChoice);
+  
   checkDirectoryExists(projectName);
-
-  if (projectName === '.') {
-    await showProgress(projectName, templatePath);
-    displayDirectory(templatePath, '.');
-  } else {
-    await showProgress(projectName, templatePath);
-    fs.mkdirSync(`${CURR_DIR}/${projectName}`);
-    displayDirectory(templatePath, projectName);
+  
+  await showProgress(projectName, templatePath);
+  
+  if (projectName !== '.') {
+    mkdirSync(join(CURR_DIR, projectName));
   }
+  
+  displayDirectory(templatePath, projectName);
+}).catch(error => {
+  console.error('Error:', error.message);
+  process.exit(1);
 });

@@ -36,7 +36,7 @@ Node.js:
 - node-ts-backend
 
 ## Usage
-After installation, open your terminal and run:
+After installation, open your terminal go to the directory where you want to create the project and run:
 
 ```
 template-boss
@@ -48,6 +48,75 @@ Follow the prompts to select a template and create your project.
 ## Contribute
 
 Please follow the steps below to ensure a smooth contribution process:
+
+## Development Guide
+
+### 🛠️ Local Development Setup
+
+#### Method 1: Using npm link (Recommended)
+```bash
+# Create a global symbolic link
+npm link
+
+# Test your changes
+template-boss
+
+# Unlink when done
+npm unlink
+```
+
+#### Method 2: Manual Installation
+```bash
+# Install globally
+npm install template-boss -g
+
+# Test directly from source
+node index.js
+
+# Uninstall when done
+npm uninstall template-boss -g
+```
+
+### 📁 Package Locations
+- **With npm link:** Your current project directory
+- **With global install:** `C:\Users\[YourUsername]\AppData\Roaming\npm\node_modules\template-boss`
+- **With local install:** `./node_modules/template-boss`
+
+### 📦 How to publish a npm Registry
+
+#### 1. **Login to npm**
+```bash
+npm login
+```
+
+#### 2. **Check Package Availability**
+```bash
+npm search <your-package-name>
+```
+
+#### 3. **Update Version Number**
+```bash
+# For patch version (1.3.3 → 1.3.4)
+npm version patch
+
+# For minor version (1.3.3 → 1.4.0)
+npm version minor
+
+# For major version (1.3.3 → 2.0.0)
+npm version major
+
+# Or update manually in package.json
+```
+
+#### 4. **Publish Package**
+```bash
+npm publish
+```
+
+#### 5. **Verify Publication**
+```bash
+npm view <your-package-name> version # to check the version of the package
+```
 
 ### Steps to Contribute:
 
@@ -64,7 +133,7 @@ Please follow the steps below to ensure a smooth contribution process:
      git clone https://github.com/<your-username>--<repo-name>.git
      cd <repo-name>
      ```
-   - Create a new branch using the format `<username>/issue-<issue-no>`:  
+   - Create a new branch using the format `<username>--issue-<issue-no>`:  
      ```
      git checkout -b <username>--issue-<issue-no>
      ```

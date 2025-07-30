@@ -3,38 +3,26 @@ import ora from 'ora';
 const showProgress = async (projectName, templatePath) => {
   const spinner = ora('Initializing project...').start();
   
-  spinner.text = 'Creating project directory...';
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  const steps = [
+    { text: 'Creating project directory...', delay: 800 },
+    { text: 'Copying template files...', delay: 1000 },
+    { text: 'Setting up project structure...', delay: 800 },
+    { text: 'Installing dependencies...', delay: 1200 },
+    { text: 'Finalizing setup...', delay: 800 }
+  ];
   
-  spinner.text = 'Copying template files...';
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  for (const step of steps) {
+    spinner.text = step.text;
+    await new Promise(resolve => setTimeout(resolve, step.delay));
+  }
   
-  spinner.text = 'Setting up project structure...';
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  spinner.text = 'Installing dependencies...';
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  spinner.text = 'Finalizing setup...';
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  spinner.succeed(`✅ Project has been successfully created!
+  spinner.succeed(`✅ Project "${projectName}" created successfully!
 
-    Next Steps:
-    1. Install dependencies:
-       ▶ npm install  |  bun install  |  pnpm install
-    
-    2. Start the development server:
-       ▶ npm run dev  |  bun run dev  |  pnpm run dev
-    
-    📌 Additional Notes:
-    - Refer to the project README for setup and configuration details.
-    - Ensure all environment variables are correctly set before running the project.
-    - Need help? Check the documentation 
-    
-    Style with Ease!
-    `);
-    
+📋 Next Steps:
+   npm install  |  bun install  |  pnpm install
+   npm run dev  |  bun run dev  |  pnpm run dev
+
+💡 Check the project README for setup details and configuration.`);
 };
 
 export default showProgress; 

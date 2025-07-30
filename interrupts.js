@@ -1,64 +1,55 @@
-import process from 'process';
-import fs from 'fs';
-import path from 'path';
+import { existsSync } from 'fs';
+import { join } from 'path';
 
-// Handle keyboard interrupts (Ctrl+C)
+// Handle keyboard interrupts (Ctrl+C, Ctrl+D, SIGTERM)
 export const setupKeyboardInterrupt = () => {
-  process.on('SIGINT', () => {
-    console.log('\nOperation cancelled by user.');
-    process.exit(0);
-  });
-
-  // Handle Ctrl+D (EOF)
-  process.on('SIGQUIT', () => {
-    console.log('\nOperation terminated by user.');
-    process.exit(0);
-  });
-
-  // Handle process termination request
-  process.on('SIGTERM', () => {
-    console.log('\nProcess termination requested.');
-    process.exit(0);
+  const signals = ['SIGINT', 'SIGQUIT', 'SIGTERM'];
+  const messages = {
+    SIGINT: 'Operation cancelled by user.',
+    SIGQUIT: 'Operation terminated by user.',
+    SIGTERM: 'Process termination requested.'
+  };
+  
+  signals.forEach(signal => {
+    process.on(signal, () => {
+      console.log(`\n${messages[signal]}`);
+      process.exit(0);
+    });
   });
 };
 
 // Check if directory exists
 export const checkDirectoryExists = (projectName) => {
+  if (projectName === '.') return;
+  
   try {
-    if (projectName === '.') return;
+    const targetPath = join(process.cwd(), projectName);
     
-    const targetPath = path.join(process.cwd(), projectName);
-    
-    if (fs.existsSync(targetPath)) {
-      console.error(`\nError: Directory '${projectName}' already exists.`);
-      console.log('Please choose a different project name or delete the existing directory.');
+    if (existsSync(targetPath)) {
+      console.error(`\n❌ Error: Directory '${projectName}' already exists.`);
+      console.log('💡 Please choose a different project name or delete the existing directory.');
       process.exit(1);
     }
   } catch (error) {
-    console.error('\nError checking directory:', error.message);
+    console.error('\n❌ Error checking directory:', error.message);
     process.exit(1);
   }
 };
 
 // Handle process errors
 export const setupErrorHandlers = () => {
-  // Handle uncaught exceptions
   process.on('uncaughtException', (error) => {
-    console.error('\nAn unexpected error occurred:', error.message);
+    console.error('\n❌ Unexpected error:', error.message);
     process.exit(1);
   });
 
-  // Handle unhandled promise rejections
-  process.on('unhandledRejection', (reason, promise) => {
-    console.error('\nUnhandled Rejection at:', promise, 'reason:', reason);
+  process.on('unhandledRejection', (reason) => {
+    console.error('\n❌ Unhandled Promise Rejection:', reason);
     process.exit(1);
   });
 
-  // Handle warnings
   process.on('warning', (warning) => {
-    console.warn('\nWarning:', warning.name, warning.message);
+    console.warn('\n⚠️  Warning:', warning.name, warning.message);
   });
 };
-
-// Handle cleanup operations
  
